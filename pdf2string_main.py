@@ -5,10 +5,10 @@ __author__ = 'SAF'
 
 from PIL import Image
 from pytesser import *
-import pdfminer
-from pdfminer.converter import TextConverter
+# import pdfminer
+# from pdfminer.converter import TextConverter
 
-from pdfminer.pdfinterp import PDFResourceManager
+# from pdfminer.pdfinterp import PDFResourceManager
 import os
 
 Const_Image_Format = [".jpg", ".jpeg", ".bmp", ".png"]
@@ -58,21 +58,23 @@ def main():
 
 
 if __name__ == '__main__':
+    save_path = r".\txt"
     b = FileFilt()
-    b.FindFile(dirr="C:\Users\SAF\Desktop\pdf2string")
+    b.FindFile(dirr=ur".\pic")
     # print(b.counter)
     txt = ""
     cnt = 1
     for k in b.fileList[1:]:
-        print "k is", k
+        print "process", k
         content = pic2string(k)
         txt = txt + content + "\n"
-        f = open("res%d.txt" % cnt, "w")
+        f = open(save_path+r"\%s.txt" % k.split("\\")[-1][:-4], "w")
         f.write(content)
         f.close()
         cnt += 1
-    f = open("res.txt", "w")
+    f = open(save_path+r".\all.txt", "w")
     f.write(txt)
     f.close()
+    print "process over!"
 
     # pdf2pic("fdfad%d.png", "fda.pdf")
