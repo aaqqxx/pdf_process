@@ -13,6 +13,7 @@ import os
 
 Const_Image_Format = [".jpg", ".jpeg", ".bmp", ".png"]
 
+
 def pdf2pic(tar_fname, source_fname):
     """
     使用A4纸像素的打印效果
@@ -20,9 +21,10 @@ def pdf2pic(tar_fname, source_fname):
     :param source_fname:
     :return:
     """
-    cmd = "mutool.exe draw -o %s -h 3508 -w 2479 %s" % (tar_fname, source_fname)
+    save_name = source_fname.split("\\")[-1][:-4] + "_"
+    cmd = "mutool.exe draw -o ./pic/%s -h 3508 -w 2479 %s" % (save_name + tar_fname, source_fname)
     print cmd
-    # os.popen(cmd)
+    os.popen(cmd)
     pass
 
 
@@ -58,6 +60,7 @@ def main():
 
 
 if __name__ == '__main__':
+    # pdf2pic("%04d.png", r"d:\liangzilixue.pdf")
     save_path = r".\txt"
     b = FileFilt()
     b.FindFile(dirr=ur".\pic")
@@ -68,11 +71,11 @@ if __name__ == '__main__':
         print "process", k
         content = pic2string(k)
         txt = txt + content + "\n"
-        f = open(save_path+r"\%s.txt" % k.split("\\")[-1][:-4], "w")
+        f = open(save_path + r"\%s.txt" % k.split("\\")[-1][:-4], "w")
         f.write(content)
         f.close()
         cnt += 1
-    f = open(save_path+r".\all.txt", "w")
+    f = open(save_path + r".\all.txt", "w")
     f.write(txt)
     f.close()
     print "process over!"
